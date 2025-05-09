@@ -1,0 +1,1 @@
+{"version":3,"file":"ExpoIgnoreBatteryOptimizations.js","sourceRoot":"","sources":["../src/ExpoIgnoreBatteryOptimizations.ts"],"names":[],"mappings":"AAAA,eAAe,EAAS,CAAC","sourcesContent":["export default {} as any;"]}

@@ -1,0 +1,20 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml:1:1-3:12
+INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml:1:1-3:12
+	package
+		INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+ADDED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml:2:3-92
+	android:name
+		ADDED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml:2:20-90
+uses-sdk
+INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml
+INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/kinndohyun/Desktop/fe-dudu/expo-ignore-battery-optimizations/android/src/main/AndroidManifest.xml

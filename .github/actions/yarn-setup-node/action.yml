@@ -1,0 +1,14 @@
+name: setup yarn & node
+description: setup yarn & node
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        cache: "yarn"
+        cache-dependency-path: "yarn.lock"
+        node-version-file: ".nvmrc"
+
+    - name: Install Yarn
+      shell: bash
+      run: corepack enable && corepack prepare yarn@stable --activate

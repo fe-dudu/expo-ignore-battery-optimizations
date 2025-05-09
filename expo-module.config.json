@@ -1,0 +1,9 @@
+{
+  "platforms": ["android"],
+  "apple": {
+    "modules": ["ExpoIgnoreBatteryOptimizationsModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.ignorebatteryoptimizations.ExpoIgnoreBatteryOptimizationsModule"]
+  }
+}
