@@ -1,5 +1,11 @@
 # expo-ignore-battery-optimizations
 
+## 0.1.2
+
+### Patch Changes
+
+- [`ca9eec8`](https://github.com/fe-dudu/expo-ignore-battery-optimizations/commit/ca9eec805f967502e68d007ea0bd0a8d868b2447) Thanks [@kinndohyun](https://github.com/kinndohyun)! - add npmignore
+
 ## 0.1.1
 
 ### Patch Changes
