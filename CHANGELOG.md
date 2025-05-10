@@ -1,5 +1,11 @@
 # expo-ignore-battery-optimizations
 
+## 0.1.3
+
+### Patch Changes
+
+- [`103153e`](https://github.com/fe-dudu/expo-ignore-battery-optimizations/commit/103153e1f0ff393cb340fa7c131999b5ecb67251) Thanks [@kinndohyun](https://github.com/kinndohyun)! - add useIgnoreBatteryOptimizations hook
+
 ## 0.1.2
 
 ### Patch Changes
