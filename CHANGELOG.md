@@ -1,5 +1,11 @@
 # expo-ignore-battery-optimizations
 
+## 0.1.4
+
+### Patch Changes
+
+- [`545c1b0`](https://github.com/fe-dudu/expo-ignore-battery-optimizations/commit/545c1b08680e332bff8b4db80ad3fa88971ebdd7) Thanks [@kinndohyun](https://github.com/kinndohyun)! - fix build error
+
 ## 0.1.3
 
 ### Patch Changes
