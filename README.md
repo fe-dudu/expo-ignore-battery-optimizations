@@ -64,6 +64,28 @@ export default function App() {
   );
 }
 ```
+```jsx
+import { View, Text, Button } from 'react-native';
+import { useIgnoreBatteryOptimizations } from 'expo-ignore-battery-optimizations';
+
+export default function App() {
+  const [permission, requestPermission] = useIgnoreBatteryOptimizations();
+
+  return (
+    <View>
+      <Text>
+        Battery Optimization Status: {permission?.granted ? "Ignored ✅" : "Restricted ❌"}
+      </Text>
+
+      <Button
+        title="Request to Ignore Battery Optimizations"
+        onPress={requestPermission}
+        disabled={permission.granted}
+      />
+    </View>
+  );
+}
+```
 
 ## Why Use This?
 Some Android device manufacturers aggressively limit background activity to save battery. To improve reliability of background services (e.g., location tracking, push messaging, etc.), your app may request the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission.
