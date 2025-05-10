@@ -47,7 +47,7 @@ yarn add expo-ignore-battery-optimizations
 ## Usage
 ```jsx
 import { useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import * as IgnoreBatteryOptimizations from 'expo-ignore-battery-optimizations';
 
 export default function App() {
@@ -55,35 +55,26 @@ export default function App() {
     const isIgnoring = IgnoreBatteryOptimizations.isIgnoringBatteryOptimizations();
 
     if (!isIgnoring) {
-      IgnoreBatteryOptimizations.requestIgnoreBatteryOptimizations();
+      Alert.alert(
+        'Battery Optimization',
+        'To ensure the app works properly, please allow it to ignore battery optimizations.',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Allow',
+            onPress: () => {
+              IgnoreBatteryOptimizations.requestIgnoreBatteryOptimizations();
+            },
+          },
+        ],
+      );
     }
   }, []);
 
-  return (
-    <View />
-  );
-}
-```
-```jsx
-import { View, Text, Button } from 'react-native';
-import { useIgnoreBatteryOptimizations } from 'expo-ignore-battery-optimizations';
-
-export default function App() {
-  const [permission, requestPermission] = useIgnoreBatteryOptimizations();
-
-  return (
-    <View>
-      <Text>
-        Battery Optimization Status: {permission?.granted ? "Ignored ✅" : "Restricted ❌"}
-      </Text>
-
-      <Button
-        title="Request to Ignore Battery Optimizations"
-        onPress={requestPermission}
-        disabled={permission?.granted}
-      />
-    </View>
-  );
+  return <View />;
 }
 ```
 
