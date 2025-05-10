@@ -80,7 +80,7 @@ export default function App() {
       <Button
         title="Request to Ignore Battery Optimizations"
         onPress={requestPermission}
-        disabled={permission.granted}
+        disabled={permission?.granted}
       />
     </View>
   );
