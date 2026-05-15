@@ -74,7 +74,7 @@ import { View, Alert } from 'react-native';
 import { useIgnoreBatteryOptimizationPermission } from 'expo-ignore-battery-optimizations';
 
 export default function App() {
-  const { status, hasPermission, requestPermission } = useIgnoreBatteryOptimizationPermission();
+  const { hasPermission, requestPermission } = useIgnoreBatteryOptimizationPermission();
 
   useEffect(() => {
     if (!hasPermission) {
@@ -103,8 +103,15 @@ export default function App() {
 
 - `status`: `'ignored' | 'not-ignored'`
 - `hasPermission`: `true` when battery optimizations are already ignored
-- `canRequestPermission`: `true` when the permission can still be requested
-- `requestPermission()`: opens the system settings flow and refreshes state after it returns
+- `canRequestPermission`: `true` when the permission can still be requested on Android
+- `requestPermission()`: opens the system settings flow and resolves after the app returns, after the hook re-checks the current permission
+- `status` / `hasPermission`: hook-managed state that updates when the app becomes active again
+
+On non-Android platforms:
+
+- `status` stays `not-ignored`
+- `canRequestPermission` is `false`
+- `requestPermission()` resolves to `false` without opening settings
 
 ## Why Use This?
 Some Android device manufacturers aggressively limit background activity to save battery. To improve reliability of background services (e.g., location tracking, push messaging, etc.), your app may request the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission.

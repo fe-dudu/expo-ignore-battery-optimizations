@@ -72,9 +72,14 @@ function createUsePermissionFunc(
 /**
  * Use the battery optimization permission state.
  *
+ * `requestPermission()` opens the system screen and the hook re-checks the
+ * permission when the app returns to the foreground. Read `status` or
+ * `hasPermission` as the source of truth in render paths.
+ *
  * @example
  * ```ts
- * const { hasPermission, requestPermission } = useIgnoreBatteryOptimizationPermission();
+ * const { hasPermission, requestPermission } =
+ *   useIgnoreBatteryOptimizationPermission();
  *
  * useEffect(() => {
  *   if (!hasPermission) {
