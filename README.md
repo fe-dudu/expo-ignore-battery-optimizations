@@ -8,6 +8,7 @@ Check and request the **`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`** permission in A
 
 - [Installation](#installation)
 - [Configure for Android](#configure-for-android)
+- [Direct API](#direct-api)
 - [Usage](#usage)
 - [Why Use This](#why-use-this)
 - [Contributing](#contributing)
@@ -41,24 +42,42 @@ yarn add expo-ignore-battery-optimizations
 }
 ```
 
+## Direct API
+```jsx
+import {
+  isIgnoringBatteryOptimizations,
+  requestIgnoreBatteryOptimizations,
+} from 'expo-ignore-battery-optimizations';
+
+const ignored = isIgnoringBatteryOptimizations();
+
+if (!ignored) {
+  await requestIgnoreBatteryOptimizations();
+}
+```
+
+`isIgnoringBatteryOptimizations()` returns:
+
+- `true` when the app is already exempt from battery optimizations
+- `false` on Android when the exemption is not active
+- `false` on non-Android platforms
+
+`requestIgnoreBatteryOptimizations()`:
+
+- opens the system settings flow on Android
+- is a no-op on non-Android platforms
+
 ## Usage
 ```jsx
 import { useEffect } from 'react';
 import { View, Alert } from 'react-native';
-import {
-  useIgnoreBatteryOptimizationPermission,
-} from 'expo-ignore-battery-optimizations';
+import { useIgnoreBatteryOptimizationPermission } from 'expo-ignore-battery-optimizations';
 
 export default function App() {
-  const {
-    status,
-    hasPermission,
-    canRequestPermission,
-    requestPermission,
-  } = useIgnoreBatteryOptimizationPermission();
+  const { status, hasPermission, requestPermission } = useIgnoreBatteryOptimizationPermission();
 
   useEffect(() => {
-    if (!hasPermission && canRequestPermission) {
+    if (!hasPermission) {
       Alert.alert(
         'Battery Optimization',
         'To ensure the app works properly, please allow it to ignore battery optimizations.',
@@ -74,7 +93,7 @@ export default function App() {
         ],
       );
     }
-  }, [hasPermission, canRequestPermission, requestPermission]);
+  }, [hasPermission, requestPermission]);
 
   return <View />;
 }
