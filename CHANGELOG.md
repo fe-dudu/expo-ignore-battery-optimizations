@@ -1,5 +1,11 @@
 # expo-ignore-battery-optimizations
 
+## 0.2.0
+
+### Minor Changes
+
+- [#6](https://github.com/fe-dudu/expo-ignore-battery-optimizations/pull/6) [`68465b1`](https://github.com/fe-dudu/expo-ignore-battery-optimizations/commit/68465b1757d193c1c7202071f588d5056695eba4) Thanks [@fe-dudu](https://github.com/fe-dudu)! - add useIgnoreBatteryOptimizationPermission hook and clarify permission flow
+
 ## 0.1.5
 
 ### Patch Changes
