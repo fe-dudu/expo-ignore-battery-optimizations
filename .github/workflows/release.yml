@@ -6,7 +6,12 @@ on:
 
 jobs:
   build:
+    if: github.repository == 'fe-dudu/expo-ignore-battery-optimizations'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/yarn-setup-node
@@ -24,5 +29,5 @@ jobs:
           publish: yarn changeset:publish
           setupGitUser: false
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
