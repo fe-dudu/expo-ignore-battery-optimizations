@@ -8,6 +8,7 @@ runs:
         cache: "yarn"
         cache-dependency-path: "yarn.lock"
         node-version-file: ".nvmrc"
+        registry-url: "https://registry.npmjs.org"
 
     - name: Install Yarn
       shell: bash

@@ -1,9 +1,6 @@
 # Expo Ignore Battery Optimizations
-
-<div style="display: flex; gap: 10px; align-items: center;">
-  <img src="https://img.shields.io/npm/v/expo-ignore-battery-optimizations?color=orange&style=flat-square&logo=npm" alt="npm version"/>
-  <img src="https://img.shields.io/npm/dt/expo-ignore-battery-optimizations?color=darkgreen&style=flat-square&logo=npm" alt="npm downloads"/>
-</div>
+[![npm version](https://badge.fury.io/js/expo-ignore-battery-optimizations.svg)](https://badge.fury.io/js/expo-ignore-battery-optimizations)
+[![npm downloads](https://img.shields.io/npm/dm/expo-ignore-battery-optimizations.svg?style=flat-square)](https://www.npmjs.com/package/expo-ignore-battery-optimizations)
 
 Check and request the **`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`** permission in Android.
 
@@ -11,6 +8,7 @@ Check and request the **`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`** permission in A
 
 - [Installation](#installation)
 - [Configure for Android](#configure-for-android)
+- [Direct API](#direct-api)
 - [Usage](#usage)
 - [Why Use This](#why-use-this)
 - [Contributing](#contributing)
@@ -44,17 +42,42 @@ yarn add expo-ignore-battery-optimizations
 }
 ```
 
+## Direct API
+```jsx
+import {
+  isIgnoringBatteryOptimizations,
+  requestIgnoreBatteryOptimizations,
+} from 'expo-ignore-battery-optimizations';
+
+const ignored = isIgnoringBatteryOptimizations();
+
+if (!ignored) {
+  await requestIgnoreBatteryOptimizations();
+}
+```
+
+`isIgnoringBatteryOptimizations()` returns:
+
+- `true` when the app is already exempt from battery optimizations
+- `false` on Android when the exemption is not active
+- `false` on non-Android platforms
+
+`requestIgnoreBatteryOptimizations()`:
+
+- opens the system settings flow on Android
+- is a no-op on non-Android platforms
+
 ## Usage
 ```jsx
 import { useEffect } from 'react';
 import { View, Alert } from 'react-native';
-import * as IgnoreBatteryOptimizations from 'expo-ignore-battery-optimizations';
+import { useIgnoreBatteryOptimizationPermission } from 'expo-ignore-battery-optimizations';
 
 export default function App() {
-  useEffect(() => {
-    const isIgnoring = IgnoreBatteryOptimizations.isIgnoringBatteryOptimizations();
+  const { hasPermission, requestPermission } = useIgnoreBatteryOptimizationPermission();
 
-    if (!isIgnoring) {
+  useEffect(() => {
+    if (!hasPermission) {
       Alert.alert(
         'Battery Optimization',
         'To ensure the app works properly, please allow it to ignore battery optimizations.',
@@ -65,18 +88,30 @@ export default function App() {
           },
           {
             text: 'Allow',
-            onPress: () => {
-              IgnoreBatteryOptimizations.requestIgnoreBatteryOptimizations();
-            },
+            onPress: requestPermission,
           },
         ],
       );
     }
-  }, []);
+  }, [hasPermission, requestPermission]);
 
   return <View />;
 }
 ```
+
+`useIgnoreBatteryOptimizationPermission()` returns:
+
+- `status`: `'ignored' | 'not-ignored'`
+- `hasPermission`: `true` when battery optimizations are already ignored
+- `canRequestPermission`: `true` when the permission can still be requested on Android
+- `requestPermission()`: opens the system settings flow and resolves after the app returns, after the hook re-checks the current permission
+- `status` / `hasPermission`: hook-managed state that updates when the app becomes active again
+
+On non-Android platforms:
+
+- `status` stays `not-ignored`
+- `canRequestPermission` is `false`
+- `requestPermission()` resolves to `false` without opening settings
 
 ## Why Use This?
 Some Android device manufacturers aggressively limit background activity to save battery. To improve reliability of background services (e.g., location tracking, push messaging, etc.), your app may request the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission.
