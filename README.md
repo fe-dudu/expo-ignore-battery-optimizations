@@ -1,9 +1,6 @@
 # Expo Ignore Battery Optimizations
-
-<div style="display: flex; gap: 10px; align-items: center;">
-  <img src="https://img.shields.io/npm/v/expo-ignore-battery-optimizations?color=orange&style=flat-square&logo=npm" alt="npm version"/>
-  <img src="https://img.shields.io/npm/dt/expo-ignore-battery-optimizations?color=darkgreen&style=flat-square&logo=npm" alt="npm downloads"/>
-</div>
+[![npm version](https://badge.fury.io/js/expo-ignore-battery-optimizations.svg)](https://badge.fury.io/js/expo-ignore-battery-optimizations)
+[![npm downloads](https://img.shields.io/npm/dm/expo-ignore-battery-optimizations.svg?style=flat-square)](https://www.npmjs.com/package/expo-ignore-battery-optimizations)
 
 Check and request the **`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`** permission in Android.
 
@@ -48,13 +45,20 @@ yarn add expo-ignore-battery-optimizations
 ```jsx
 import { useEffect } from 'react';
 import { View, Alert } from 'react-native';
-import * as IgnoreBatteryOptimizations from 'expo-ignore-battery-optimizations';
+import {
+  useIgnoreBatteryOptimizationPermission,
+} from 'expo-ignore-battery-optimizations';
 
 export default function App() {
-  useEffect(() => {
-    const isIgnoring = IgnoreBatteryOptimizations.isIgnoringBatteryOptimizations();
+  const {
+    status,
+    hasPermission,
+    canRequestPermission,
+    requestPermission,
+  } = useIgnoreBatteryOptimizationPermission();
 
-    if (!isIgnoring) {
+  useEffect(() => {
+    if (!hasPermission && canRequestPermission) {
       Alert.alert(
         'Battery Optimization',
         'To ensure the app works properly, please allow it to ignore battery optimizations.',
@@ -65,18 +69,23 @@ export default function App() {
           },
           {
             text: 'Allow',
-            onPress: () => {
-              IgnoreBatteryOptimizations.requestIgnoreBatteryOptimizations();
-            },
+            onPress: requestPermission,
           },
         ],
       );
     }
-  }, []);
+  }, [hasPermission, canRequestPermission, requestPermission]);
 
   return <View />;
 }
 ```
+
+`useIgnoreBatteryOptimizationPermission()` returns:
+
+- `status`: `'ignored' | 'not-ignored'`
+- `hasPermission`: `true` when battery optimizations are already ignored
+- `canRequestPermission`: `true` when the permission can still be requested
+- `requestPermission()`: opens the system settings flow and refreshes state after it returns
 
 ## Why Use This?
 Some Android device manufacturers aggressively limit background activity to save battery. To improve reliability of background services (e.g., location tracking, push messaging, etc.), your app may request the REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission.
